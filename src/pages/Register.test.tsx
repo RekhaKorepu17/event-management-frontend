@@ -13,7 +13,7 @@ describe("RegisterForm Component", () => {
     jest.clearAllMocks();
   });
 
-  test("renders the form with all fields", () => {
+  test("should render the form with all fields", () => {
     render(
       < MemoryRouter><RegisterForm /></MemoryRouter>);
     expect(screen.getByLabelText("Username")).toBeInTheDocument();
@@ -27,7 +27,7 @@ describe("RegisterForm Component", () => {
     expect(screen.getByText("Already have an account?")).toBeInTheDocument();
   });
 
-  test("validates username field", async () => {
+  test("should validate username field", async () => {
     render(
       < MemoryRouter><RegisterForm /></MemoryRouter>);
 
@@ -76,7 +76,7 @@ describe("RegisterForm Component", () => {
 
     const registerButton = screen.getByRole("button", { name: "Register" });
 
-    // Trigger validation
+  
     fireEvent.change(passwordInput, { target: { value: "" } });
     fireEvent.click(registerButton);
 
@@ -120,15 +120,15 @@ describe("RegisterForm Component", () => {
     render(
       < MemoryRouter><RegisterForm /></MemoryRouter>);
 
-    // Fill in the form
+
     fireEvent.change(screen.getByLabelText("Username"), {
-      target: { value: "JohnDoe" },
+      target: { value: "Rekha" },
     });
     fireEvent.change(screen.getByLabelText("Email"), {
-      target: { value: "existingemail@example.com" },
+      target: { value: "rekha@gmail.com" },
     });
     fireEvent.change(screen.getByLabelText("Password"), {
-      target: { value: "password123" },
+      target: { value: "12345678" },
     });
     fireEvent.change(screen.getByLabelText("Mobile Number"), {
       target: { value: "9876543210" },
@@ -151,17 +151,17 @@ describe("RegisterForm Component", () => {
       < MemoryRouter><RegisterForm /></MemoryRouter>);
 
     fireEvent.change(screen.getByLabelText(/username/i), {
-      target: { value: "JohnDoe" },
+      target: { value: "Rekha" },
     });
     fireEvent.change(screen.getByLabelText(/email/i), {
-      target: { value: "johndoe@example.com" },
+      target: { value: "rekha@gmail.com" },
     });
 
     const passwordFields = screen.getAllByLabelText(/password/i);
     const passwordField: any = passwordFields.find(
       (field: any) => field.type === "password"
     );
-    fireEvent.change(passwordField, { target: { value: "password123" } });
+    fireEvent.change(passwordField, { target: { value: "453214123" } });
 
     fireEvent.change(screen.getByLabelText(/mobile number/i), {
       target: { value: "9876543210" },
@@ -176,9 +176,9 @@ describe("RegisterForm Component", () => {
       expect(mockedAxios.post).toHaveBeenCalledWith(
         "http://localhost:3001/users",
         {
-          username: "JohnDoe",
-          email: "johndoe@example.com",
-          password: "password123",
+          username: "Rekha",
+          email: "rekha@gmail.com",
+          password: "453214123",
           mobile: "9876543210",
           role: "User",
         }
