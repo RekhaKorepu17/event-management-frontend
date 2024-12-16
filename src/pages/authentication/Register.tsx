@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useNavigation } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
   TextField,
@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { AccountCircle, Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
+import { useGlobalState } from "../../GlobalContext/globalContext";
 
 type FormData = {
   username: string;
@@ -30,6 +31,7 @@ const RegisterForm = () => {
     handleSubmit: registerUser,
     formState: { errors },
   } = useForm<FormData>();
+  const {setUser} = useGlobalState();
 
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -44,6 +46,8 @@ const RegisterForm = () => {
       const response = await axios.post("http://localhost:3001/users", data);
       console.log("Account created", response.status);
       if (response.status === 201) {
+        setUser(response.data.user);
+        navigate('/dashboard');
         window.alert("Account created succesfully");
       }
     } catch (error: any) {
@@ -175,14 +179,14 @@ const RegisterForm = () => {
               </Typography>
             )}
           </Box>
-          <Button type="submit" variant="contained" color="secondary" fullWidth>
+          <Button type="submit" variant="contained" fullWidth  sx={{backgroundColor: "rgba(31, 108, 123, 0.879)" }}>
             Register
           </Button>
         </Box>
       </form>
       <p>
         Already have an account?
-        <Button color="secondary" onClick={() => navigate("/")}>
+        <Button onClick={() => navigate("/")} sx={{color: "rgba(31, 108, 123, 0.879)" }}>
           Login here
         </Button>
       </p>
