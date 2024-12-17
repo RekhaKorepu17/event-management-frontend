@@ -87,14 +87,10 @@ const EventCard: React.FC<EventProps> = ({
         </Box>
       </CardContent>
       <CardActions>
-        <Button
-          size="small"
-          variant="contained"
-          sx={{backgroundColor: "rgba(31, 108, 123, 0.879)", justifyContent: 'center' }}
-          disabled={eventStatus === "cancelled"}
-        >
-          {eventStatus === "active" ? "Register Now" : eventStatus}
-        </Button>
+     
+        <p style={{marginTop: '-10px', color:'red'}}>
+        {eventStatus === "active" ? "upcoming": 'completed'}
+        </p>
       </CardActions>
     </Card>
   );
