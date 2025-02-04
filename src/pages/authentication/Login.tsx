@@ -2,8 +2,10 @@ import { TextField, Button, Box, Typography, Paper } from "@mui/material";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useGlobalState } from "../../GlobalContext/globalContext";
 
 const LoginForm = () => {
+  const{user,setUser} = useGlobalState()
   const {
     register,
     handleSubmit: userLogin,
@@ -21,6 +23,10 @@ const LoginForm = () => {
       );
 
       if (response.status === 200) {
+        console.log("response", response);
+        setUser(response.data.user);
+        console.log("user", user);
+        navigate('/dashboard');
         window.alert("Logged in");
       }
     } catch (error: any) {
@@ -75,7 +81,7 @@ const LoginForm = () => {
               errors.password ? (errors.password.message as string) : ""
             }
           />
-          <Button type="submit" variant="contained" color="secondary" fullWidth>
+          <Button type="submit" variant="contained" fullWidth   sx={{backgroundColor: "rgba(31, 108, 123, 0.879)" }}>
             Login
           </Button>
         </Box>
@@ -85,7 +91,7 @@ const LoginForm = () => {
           <button
             style={{
               background: "white",
-              color: "purple",
+              color: "rgba(31, 108, 123, 0.879)",
               border: 0,
               fontSize: 16,
             }}
