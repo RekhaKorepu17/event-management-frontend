@@ -5,15 +5,14 @@ import axios from "axios";
 import { useGlobalState } from "../../GlobalContext/globalContext";
 import { useNavigate } from "react-router-dom";
 
-
 const DashBoard = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTab, setSelectedTab] = useState("Entertainment");
 
-  const {events, setEvents} = useGlobalState();
-  const navigate= useNavigate();
+  const { events, setEvents } = useGlobalState();
+  const navigate = useNavigate();
 
-const{user}= useGlobalState();
+  const { user } = useGlobalState();
   useEffect(() => {
     getAllEvents();
   }, []);
@@ -21,11 +20,11 @@ const{user}= useGlobalState();
   const getAllEvents = async () => {
     try {
       const response: any = await axios.get(`http://localhost:3001/events`);
-      if (response.status === 200) {
+      if (response && response.status === 200) {
         setEvents(response.data.events);
       }
     } catch (error: any) {
-      throw new Error("Error while fetching events");
+      console.error("Error while fetching events:", error);
     }
   };
 
@@ -34,9 +33,8 @@ const{user}= useGlobalState();
       event.eventType === selectedTab &&
       event.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  
+
   return (
- 
     <div className="container">
       <div className="header">
         <h2 className="title">Eventbrite</h2>
@@ -49,9 +47,7 @@ const{user}= useGlobalState();
         />
         <div className="welcome">
           <p className="welcome-text"> Welcome </p>
-        <p className="username"> {user.username}!</p>
         </div>
-       
       </div>
 
       <div className="tabs">
@@ -67,13 +63,22 @@ const{user}= useGlobalState();
       </div>
       <div className="events-container">
         {filteredEvents.map((event: any) => (
-          <div key={event.id}   onClick={() => navigate('/EventDetails', { state: { event } })}>
-          <EventCard key={event.id} {...event} />
+          <div
+            key={event.id}
+            onClick={() => navigate("/EventDetails", { state: { event } })}
+          >
+            <EventCard key={event.id} {...event} />
           </div>
         ))}
       </div>
       <div className="create-event">
-      {true ? <button className="event-button">Create Event</button> : ''}
+        {true ? (
+          <button className="event-button" onClick={() => navigate("/event")}>
+            Create Event
+          </button>
+        ) : (
+          ""
+        )}
       </div>
       <div className="footer">
         <p>©All Rights Reserved to Eventbrite - 2024.</p>

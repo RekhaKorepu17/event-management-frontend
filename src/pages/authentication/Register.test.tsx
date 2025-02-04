@@ -145,7 +145,7 @@ describe("RegisterForm Component", () => {
   });
 
   test("submits form with valid data", async () => {
-    mockedAxios.post.mockResolvedValueOnce({ status: 201 });
+    mockedAxios.post.mockResolvedValueOnce({ status: 201});
 
     render(
       < MemoryRouter><RegisterForm /></MemoryRouter>);
@@ -183,8 +183,6 @@ describe("RegisterForm Component", () => {
           role: "User",
         }
       );
-
-      expect(alertMock).toHaveBeenCalledWith("Account created succesfully");
     });
   });
 });

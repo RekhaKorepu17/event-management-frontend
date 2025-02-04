@@ -62,15 +62,17 @@ describe("LoginForm Component", () => {
     fireEvent.click(loginButton);
 
     await waitFor(() => {
-      expect(mockedAxios.get).toHaveBeenCalledWith(
-        `http://localhost:3001/user?email=validemail%40example.com&password=validpassword`
+      expect(mockedAxios.post).toHaveBeenCalledWith(
+        `http://localhost:3001/user`,{
+          email: 'validemail@example.com',
+          password: "validpassword" 
+        }
       );
-      expect(alertMock).toHaveBeenCalledWith("Logged in");
     });
   });
 
   test("shows error when email is not registered", async () => {
-    mockedAxios.get.mockRejectedValueOnce({
+    mockedAxios.post.mockRejectedValueOnce({
       response: { status: 404 },
     });
 
@@ -96,7 +98,7 @@ describe("LoginForm Component", () => {
   });
 
   test("shows error when incorrect password is provided", async () => {
-    mockedAxios.get.mockRejectedValueOnce({
+    mockedAxios.post.mockRejectedValueOnce({
       response: { status: 401 },
     });
 

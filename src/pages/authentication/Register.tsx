@@ -41,12 +41,11 @@ const RegisterForm = () => {
   };
 
   const onSubmit = async (data: FormData) => {
-    console.log("hello");
     try {
-      const response = await axios.post("http://localhost:3001/users", data);
-      console.log("Account created", response.status);
+      const BASE_URL= process.env.REACT_APP_BASE_URL;
+      const response = await axios.post(`${BASE_URL}/users`, data);
       if (response.status === 201) {
-        setUser(response.data.user);
+       setUser(response.data.user);
         navigate('/dashboard');
         window.alert("Account created succesfully");
       }
