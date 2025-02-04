@@ -16,16 +16,12 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const onSubmit = async (data: any) => {
     try {
-      const response = await axios.get(
-        `http://localhost:3001/user?email=${encodeURIComponent(
-          data.email
-        )}&password=${encodeURIComponent(data.password)}`
+      const BASE_URL= process.env.REACT_APP_BASE_URL;
+      const response = await axios.post(
+        `${BASE_URL}/user`, data
       );
-
       if (response.status === 200) {
-        console.log("response", response);
         setUser(response.data.user);
-        console.log("user", user);
         navigate('/dashboard');
         window.alert("Logged in");
       }
