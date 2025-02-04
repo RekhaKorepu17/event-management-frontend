@@ -21,7 +21,6 @@ const EventCard: React.FC<EventProps> = ({
   startTime,
   endTime,
   address,
-  eventType,
   eventStatus,
   organizerName,
   imageUrl,
