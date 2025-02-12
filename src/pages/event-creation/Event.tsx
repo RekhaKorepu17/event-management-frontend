@@ -16,8 +16,9 @@ const Event = () => {
       const eventPayload = {
         event: data,
       };
+      const BASE_URL= process.env.REACT_APP_BASE_URL;
       const response = await axios.post(
-        "http://localhost:3001/event",
+        `${BASE_URL}/event`,
         eventPayload
       );
       console.log("event created", response.status);
