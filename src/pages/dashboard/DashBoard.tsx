@@ -19,7 +19,8 @@ const DashBoard = () => {
 
   const getAllEvents = async () => {
     try {
-      const response: any = await axios.get(`http://localhost:3001/events`);
+      const BASE_URL= process.env.REACT_APP_BASE_URL;
+      const response: any = await axios.get(`${BASE_URL}/events`);
       if (response && response.status === 200) {
         setEvents(response.data.events);
       }
