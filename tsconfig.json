@@ -13,5 +13,8 @@
     "resolveJsonModule": true,
     "jsx": "react-jsx"
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "rules": {
+    "no-unused-vars": "off"
+  }
 }
