@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useGlobalState } from "../../GlobalContext/globalContext";
 
 const LoginForm = () => {
-  const{user,setUser} = useGlobalState()
+  const{setUser} = useGlobalState()
   const {
     register,
     handleSubmit: userLogin,

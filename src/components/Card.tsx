@@ -5,7 +5,6 @@ import {
   CardContent,
   Typography,
   CardActions,
-  Button,
   Box,
 } from "@mui/material";
 import EventIcon from "@mui/icons-material/Event";
