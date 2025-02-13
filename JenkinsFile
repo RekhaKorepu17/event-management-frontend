@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+    environment {
+        PATH = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/libexec:$PATH"
+    }
+    stages {
+        stage('Checkout Code') {
+            steps {
+                 checkout scm
+            }
+        }
+        stage('Verify Docker and its version') {
+            steps {
+                sh 'which docker'     
+                sh 'docker --version' 
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -f DockerFile --no-cache -t rekha1490/eventbrite-frontend .'
+            }
+        }
+        stage('push Docker image to docker hub'){
+            steps {
+               echo 'pushing docker image to docker hub'
+               sh 'docker push rekha1490/eventbrite-frontend'
+            }
+        }
+        stage('Deployment stage- pulling the image from docker hub'){
+            steps{
+                echo 'pulling the image from dockerhub'
+                sh 'docker pull rekha1490/eventbrite-frontend'
+            }
+        }
+        stage('Running the docker image and creating container'){
+            steps{
+                echo 'Running the image'
+                sh 'docker run -d -p 3003:3000 --name eventbrite-app rekha1490/eventbrite-frontend'
+            }
+        }
+    }
+}
