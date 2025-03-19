@@ -16,9 +16,8 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const onSubmit = async (data: any) => {
     try {
-      const BASE_URL= process.env.REACT_APP_BASE_URL;
       const response = await axios.post(
-        `${BASE_URL}/user`, data
+        `http://localhost:3001/user`, data
       );
       if (response.status === 200) {
         setUser(response.data.user);

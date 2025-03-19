@@ -43,7 +43,7 @@ const RegisterForm = () => {
   const onSubmit = async (data: FormData) => {
     try {
       const BASE_URL= process.env.REACT_APP_BASE_URL;
-      const response = await axios.post(`${BASE_URL}/users`, data);
+      const response = await axios.post(`http://localhost:3001/users`, data);
       if (response.status === 201) {
        setUser(response.data.user);
         navigate('/dashboard');
