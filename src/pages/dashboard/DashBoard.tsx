@@ -11,8 +11,7 @@ const DashBoard = () => {
 
   const { events, setEvents } = useGlobalState();
   const navigate = useNavigate();
-
-  const { user } = useGlobalState();
+  
   useEffect(() => {
     getAllEvents();
   }, []);
